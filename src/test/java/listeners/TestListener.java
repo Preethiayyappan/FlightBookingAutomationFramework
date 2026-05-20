@@ -1,17 +1,12 @@
-
 package listeners;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
+import base.BaseTest;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-import utils.ExtentManager;
+import utils.ScreenshotUtils;
 
 public class TestListener implements ITestListener {
-
-    ExtentReports extent = ExtentManager.getInstance();
-    ExtentTest test;
 
     @Override
     public void onStart(ITestContext context) {
@@ -20,9 +15,13 @@ public class TestListener implements ITestListener {
     }
 
     @Override
-    public void onTestStart(ITestResult result) {
+    public void onFinish(ITestContext context) {
 
-        test = extent.createTest(result.getName());
+        System.out.println("Test Execution Completed");
+    }
+
+    @Override
+    public void onTestStart(ITestResult result) {
 
         System.out.println("Running Test : "
                 + result.getName());
@@ -31,8 +30,6 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestSuccess(ITestResult result) {
 
-        test.pass("Test Passed");
-
         System.out.println("Test Passed : "
                 + result.getName());
     }
@@ -40,17 +37,24 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
 
-        test.fail(result.getThrowable());
-
         System.out.println("Test Failed : "
                 + result.getName());
+
+        System.out.println(
+                "Screenshot Method Triggered"
+        );
+
+        // Capture Screenshot
+        ScreenshotUtils.captureScreenshot(
+                BaseTest.driver,
+                result.getName()
+        );
     }
 
     @Override
-    public void onFinish(ITestContext context) {
+    public void onTestSkipped(ITestResult result) {
 
-        extent.flush();
-
-        System.out.println("Test Execution Completed");
+        System.out.println("Test Skipped : "
+                + result.getName());
     }
 }

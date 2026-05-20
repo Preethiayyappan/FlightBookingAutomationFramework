@@ -14,7 +14,7 @@ public class FlightSearchTest extends BaseTest {
 
         HomePage homePage = new HomePage(driver);
 
-       ]
+
         homePage.searchFlight("Boston", "London");
 
         FlightListPage flightListPage =

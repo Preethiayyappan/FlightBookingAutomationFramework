@@ -6,18 +6,20 @@ import java.util.Properties;
 
 public class ConfigReader {
 
-    private static Properties properties;
+    static Properties properties;
 
     static {
 
         try {
 
-            FileInputStream fis = new FileInputStream(
-                    "src/test/resources/config.properties"
-            );
+            FileInputStream file =
+                    new FileInputStream(
+                            "src/test/resources/config.properties"
+                    );
 
             properties = new Properties();
-            properties.load(fis);
+
+            properties.load(file);
 
         } catch (IOException e) {
 
@@ -25,8 +27,23 @@ public class ConfigReader {
         }
     }
 
-    public static String getProperty(String key) {
+    // Get Browser Name
+    public static String getBrowser() {
 
-        return properties.getProperty(key);
+        return properties.getProperty("browser");
+    }
+
+    // Get Base URL
+    public static String getBaseUrl() {
+
+        return properties.getProperty("baseUrl");
+    }
+
+    // Get Timeout
+    public static int getTimeout() {
+
+        return Integer.parseInt(
+                properties.getProperty("timeout")
+        );
     }
 }

@@ -1,19 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
-<suite name="Flight Booking Suite" parallel="tests" thread-count="2">
+<suite name="Flight Booking Suite"
+       parallel="tests"
+       thread-count="2">
 
+    <!-- Listeners -->
     <listeners>
+
         <listener class-name="listeners.TestListener"/>
+
     </listeners>
 
-    <test name="Flight Tests">
+    <!-- Test Execution -->
+    <test name="Flight Booking Tests">
 
         <classes>
 
             <class name="tests.FlightSearchTest"/>
+
             <class name="tests.FlightSelectionTest"/>
+
             <class name="tests.PurchaseTest"/>
+
             <class name="tests.RouteSearchTest"/>
+
             <class name="tests.ValidationTest"/>
 
         </classes>
